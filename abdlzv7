@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Kamera</title>
+    <style>
+        #video-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-container">
+        <video id="video" autoplay playsinline></video>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoElement = document.getElementById('video');
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then((stream) => {
+                        videoElement.srcObject = stream;
+                    })
+                    .catch((error) => {
+                        console.error('Kamera xatosi: ', error);
+                    });
+            } else {
+                console.error('Kamera uchun getUserMedia mavjud emas');
+            }
+        });
+    </script>
+
+</body>
+</html>
